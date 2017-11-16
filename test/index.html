@@ -5,41 +5,26 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>test page</title>
     <style>
-        /* @keyframes keyframes {
-            0% {
-                background-image: url("../sample/heart_0.png");
-            }
-        
-            20.00% {
-                background-image: url("../sample/heart_1.png");
-            }
-        
-            40.00% {
-                background-image: url("../sample/heart_2.png");
-            }
-        
-            60.00% {
-                background-image: url("../sample/heart_3.png");
-            }
-        
-            80.00% {
-                background-image: url("../sample/heart_4.png");
-            }
-        
-            100% {
-                background-image: url("../sample/heart_4.png");
-            }
-        } */
     </style>
 </head>
 
 
 <body>
-    <div id="app"></div>
     <input id="file" type="file" />
-
+</body>
+<script src="../lib/jszip-utils.js"></script>
 <script src="../build/index.js"></script>
 <script>
+document.getElementById('file').addEventListener('change', function(e) {
+    let file = e.target.files[0]
+    let player = new FrameAnimationPlayer()
+    player.loadFile(file, function(dom) {
+        document.body.appendChild(dom)
+        // setTimeout(() => {
+        //     player.start()
+        // }, 2000)
+        player.start()
+    })
+}, false)
 </script>
-</body>
 </html>
