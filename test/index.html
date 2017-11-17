@@ -19,8 +19,8 @@ document.getElementById('file').addEventListener('change', function(e) {
     let file = e.target.files[0]
     let player = new FrameAnimationPlayer()
     player.config({
-        width: '330px',
-        height: '349px',
+        // width: '330px',
+        // height: '349px',
         animationDuration: '1s'
     })
     player.loadFile(file, function(dom) {

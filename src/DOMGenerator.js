@@ -10,7 +10,7 @@ class DOMGenerator {
             backgroundSize: 'cover',
             animationName: '___keyframe',
             animationDuration: '1s',
-            animationTimingFunction: 'steps(1)',
+            animationTimingFunction: 'linear',
             animationDelay: '0s',
             animationIterationCount: 'infinite',
             animationDirection: 'normal',

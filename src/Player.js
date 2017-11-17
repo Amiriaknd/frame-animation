@@ -12,7 +12,20 @@ class Player {
         let reader = new Reader(file)
         reader.read().then((data) => {
             let loader = new Loader(data)
-            loader.load().then((blobArr) => {
+            loader.load().then((result) => {
+                // let widthArr = []
+                // let heightArr = []
+                let blobArr = []
+                result.sort((a, b) => (a.name.localeCompare(b.name)))
+                    .map(t => {
+                        // widthArr.push(t.width)
+                        // heightArr.push(t.height)
+                        blobArr.push(t.data)
+                    })
+                // const defaultWidth = Math.max.apply(null, widthArr)
+                // const defaultHeight = Math.max.apply(null, heightArr)
+                // this._config.width = this._config.width || (defaultWidth + 'px')
+                // this._config.height = this._config.height || (defaultHeight + 'px')
                 let g = new DOMGenerator(blobArr, this._config)
                 let dom = g.generateDIV()
                 this._dom = dom

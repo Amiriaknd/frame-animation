@@ -14,9 +14,14 @@ class Loader {
                 .sort((fna, fnb) => (fna - fnb))
                 .map(function(filename) {
                     const file = zip.files[filename]
-                    const width = U8toInt(file._data.compressedContent.subarray(16, 20))
-                    const height = U8toInt(file._data.compressedContent.subarray(20, 24))
-                    return file.async('blob').then((blob) => (URL.createObjectURL(blob)))
+                    // const width = U8toInt(file._data.compressedContent.subarray(16, 20))
+                    // const height = U8toInt(file._data.compressedContent.subarray(20, 24))
+                    return file.async('blob').then((blob) => ({
+                        // width: width,
+                        // height: height,
+                        name: filename,
+                        data:URL.createObjectURL(blob)
+                    }))
                 })
             return Promise.all(promises)
         })
