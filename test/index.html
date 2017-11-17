@@ -18,6 +18,11 @@
 document.getElementById('file').addEventListener('change', function(e) {
     let file = e.target.files[0]
     let player = new FrameAnimationPlayer()
+    player.config({
+        width: '120px',
+        height: '120px',
+        animationDuration: '2s'
+    })
     player.loadFile(file, function(dom) {
         document.body.appendChild(dom)
         // setTimeout(() => {

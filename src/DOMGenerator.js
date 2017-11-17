@@ -1,42 +1,38 @@
 class DOMGenerator {
-    constructor(blobArr, {width, height, animationDuration, animationTimingFunction, animationDelay}) {
+    constructor(blobArr, config) {
         this.blobArr = blobArr
+        this._defaultConfig = {
+            display: 'block',
+            width: '100px',
+            height: '100px',
+            backgroundRepeat: 'no-repeat',
+            backgroundPosition: 'center center',
+            backgroundSize: 'cover',
+            animationName: '___keyframe',
+            animationDuration: '1s',
+            animationTimingFunction: 'steps(1)',
+            animationDelay: '0s',
+            animationIterationCount: 'infinite',
+            animationDirection: 'normal',
+            animationFillMode: 'none',
+            animationPlayState: 'paused'
+        }
 
-        this.width = width || '100px'
-        this.height = height || '100px'
-        this.backgroundRepeat = 'no-repeat'
-        this.backgroundPosition = 'center center'
-        this.backgroundSize = 'cover'
-        this.animationDuration = animationDuration || '1s'
-        this.animationTimingFunction = animationTimingFunction || 'steps(1)'
-        this.animationDelay = animationDelay || '0s'
-        this.animationIterationCount = 'infinite'
-        this.animationDirection = 'normal'
-        this.animationFillMode = 'none'
-        this.animationPlayState = 'paused'
+        this._config = JSON.parse(JSON.stringify(this._defaultConfig))
+        this.loadConfig(config)
+    }
+
+    loadConfig(config) {
+        for (let key in config) {
+            this._config[key] = config[key]
+        }
     }
 
     generateDIV() {
-        const animationName = this.generateKeyframe()
+        this._config.animationName = this.generateKeyframe()
         const DOM = document.createElement('div')
-        const temp = {
-            display: 'block',
-            width: this.width,
-            height: this.height,
-            backgroundRepeat: this.backgroundRepeat,
-            backgroundPosition: this.backgroundPosition,
-            backgroundSize: this.backgroundSize,
-            animationName: animationName,
-            animationDuration: this.animationDuration,
-            animationTimingFunction: this.animationTimingFunction,
-            animationDelay: this.animationDelay,
-            animationIterationCount: this.animationIterationCount,
-            animationDirection: this.animationDirection,
-            animationFillMode: this.animationFillMode,
-            animationPlayState: this.animationPlayState
-        }
-        for (let key in temp) {
-            DOM.style[key] = temp[key]
+        for (let key in this._config) {
+            DOM.style[key] = this._config[key]
         }
         return DOM
     }

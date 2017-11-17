@@ -4,7 +4,8 @@ import Reader from './Reader.js'
 
 class Player {
     constructor() {
-        this.dom = null
+        this._dom = null
+        this._config = {}
     }
 
     loadFile(file, callback) {
@@ -12,13 +13,9 @@ class Player {
         reader.read().then((data) => {
             let loader = new Loader(data)
             loader.load().then((blobArr) => {
-                let g = new DOMGenerator(blobArr, {
-                    width: '120px',
-                    height: '120px',
-                    animationDuration: '.5s'
-                })
+                let g = new DOMGenerator(blobArr, this._config)
                 let dom = g.generateDIV()
-                this.dom = dom
+                this._dom = dom
                 callback(dom)
             }).catch(function(e) {
                 console.error(e)
@@ -26,15 +23,19 @@ class Player {
         })
     }
 
+    config(c) {
+        this._config = JSON.parse(JSON.stringify(c))
+    }
+
     start() {
-        if (this.dom !== null) {
-            this.dom.style.animationPlayState = 'running'
+        if (this._dom !== null) {
+            this._dom.style.animationPlayState = 'running'
         }
     }
 
     stop() {
-        if (this.dom !== null) {
-            this.dom.style.animationPlayState = 'paused'
+        if (this._dom !== null) {
+            this._dom.style.animationPlayState = 'paused'
         }
     }
 }
